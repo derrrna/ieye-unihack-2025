@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -12,24 +12,26 @@ const Schema = mongoose.Schema;
  * - attendees: References the User model and identifies the participants of the hangout. This property is of type ObjectId and is required.
  */
 let hangoutSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    startDate: {
-        type: Date,
-        required: true
-    },
-    link: {
-        type: String,
-        required: true
-    },
+  name: {
+    type: String,
+    required: true,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  link: {
+    type: String,
+    required: true,
+  },
 
-    attendees: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
+  attendees: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  ],
 });
 
-module.exports = mongoose.model('Hangout', hangoutSchema);
+module.exports = mongoose.model("Hangout", hangoutSchema);
