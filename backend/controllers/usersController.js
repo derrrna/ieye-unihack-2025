@@ -61,20 +61,27 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    let id = new mongoose.Types.ObjectId(req.body.id);
-    let name = req.body.name;
-    let availability = req.body.availability;
+    const { id, name, availability } = req.body;
 
-    let user = await User.findById(id);
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
 
-    if (!user) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid User ID" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: { ...(name !== undefined && { name }), ...(availability !== undefined && { availability }) } },
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.name = name;
-    user.availability = availability;
-    await user.save();
-    res.status(200).json(user);
+    res.status(200).json({ message: "User updated successfully", user: updatedUser });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

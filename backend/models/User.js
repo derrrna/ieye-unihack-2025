@@ -10,22 +10,24 @@ const mongoose = require("mongoose");
  *    - `timePeriod`: The time period of availability, stored as a required string.
  */
 const userSchema = new mongoose.Schema({
-    name: {
+  name: {
+    type: String,
+    required: true,
+  },
+  availability: [
+    {
+      day: {
         type: String,
-        required: true
-    },
-    availability: [
+        required: true,
+      },
+      timePeriod: [
         {
-            day: {
-                type: String,
-                required: true
-            },
-            timePeriod: {
-                type: String,
-                required: true
-            }
-        }
-    ]
+          type: String,
+          required: true,
+        },
+      ],
+    },
+  ],
 });
 
 /**
