@@ -11,6 +11,7 @@ export default function CreationPage() {
                 <div className="lg:pl-35 text-[#1F100A]">
                     <h1 className="lg:pt-50 lg:text-5xl font-[Slackey]">PalsPlan</h1>
                     <h2 className="lg:mt-2 lg:text-3xl font-[Dongle]">Plan a hangout in less than 5 minutes!</h2>
+
                 </div>
             </div>
 
