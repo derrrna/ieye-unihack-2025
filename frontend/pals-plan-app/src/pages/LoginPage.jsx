@@ -10,16 +10,14 @@ export default function LoginPage(){
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/users", {
-            method: "POST",
+        fetch(`http://localhost:3000/hangout/${hangoutId}`, {
             headers: {
                 "Content-Type": "applications/json",
             },
-            body: JSON.stringify({hangoutId: `${hangoutId}` })
         }).then((res)=> {
             return res.json();
         }).then((data) => {
-            setUsers(data);
+            setUsers(data.attendees);
         });
     },[])
 
@@ -41,7 +39,7 @@ export default function LoginPage(){
                         <select name="name" className='mb-3 bg-white rounded-2xl text-2xl pl-2 text-black'
                         onChange={(e) => setId(e.target.value)}>
                             {users.map(user =>
-                                <option value={user.id}>{user.name}</option>
+                                <option key={user.id} value={user.id}>{user.name}</option>
                             )}
                         </select>
                         <button type="submit" className="btn bg-[#5E93E8] border-none text-xl">Select your Name!</button>

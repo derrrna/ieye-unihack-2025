@@ -52,7 +52,7 @@ const createHangouts = async (req, res) => {
 
     const savedHangout = await newHangout.save();
 
-    res.status(201).json(savedHangout._id);
+    res.status(201).json({id:savedHangout._id});
   } catch (error) {
     res
       .status(500)
@@ -73,10 +73,10 @@ const dates = async (req, res) => {
       days.push(dayNames[currentDate.getDay()]);
       currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
         res.status(201).json({id: savedHangout._id});
-    } catch (error) {
-        res.status(500).json({message: 'Failed to create hangout', error: error.message});
-    }
+    } 
     res.status(200).json(days);
+    }   catch (error) {
+        res.status(500).json({message: 'Failed to create hangout', error: error.message});
   }
 };
 
