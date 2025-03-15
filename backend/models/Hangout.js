@@ -16,10 +16,17 @@ let hangoutSchema = new Schema({
         type: String,
         required: true
     },
+
     startDate: {
         type: Date,
         required: true
     },
+
+    location: {
+        type: String,
+        required: true
+    },
+
     link: {
         type: String,
         required: true
@@ -32,4 +39,5 @@ let hangoutSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Hangout', hangoutSchema);
+const Hangout = mongoose.model('Hangout', hangoutSchema);
+module.exports = Hangout;
