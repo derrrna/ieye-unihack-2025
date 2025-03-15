@@ -18,10 +18,12 @@ export default function CreationPage() {
                 <div className="lg:w-2/3 lg:h-3/4 bg-[#FFCF32] rounded-4xl shadow-md font-[Dongle] lg:text-4xl">
                     <div className="p-20 text-white flex flex-col">
                         <h1>Hangout Name</h1>
-                        <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl bg-white text-[#1F100A] rounded-2xl" />
+                        <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl text-white rounded-2xl" />
                         <h1>Location</h1>
+                        <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl text-white rounded-2xl" />
                         <h1>Date Range</h1>
-                        <button class="btn bg-[#5E93E8] border-none text-xl">+ Create</button>
+                        <input type="date" className="input text-2xl text-white rounded-2xl mb-10"/>
+                        <button class="btn bg-[#5E93E8] border-none text-xl w-1/4">+ Create</button>
                     </div>
                 </div>
             </div>
