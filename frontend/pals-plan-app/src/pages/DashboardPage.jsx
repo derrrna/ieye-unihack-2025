@@ -1,4 +1,5 @@
 import React from "react";
+import EventBlock from "../components/EventBlock";
 
 export default function DashboardPage() {
 
@@ -6,6 +7,8 @@ export default function DashboardPage() {
 
     {/* array containing all activities and their details*/}
     const allActivities = [
+        {activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "google.com", totalLikes: 3},
+        {activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "google.com", totalLikes: 3},
         {activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "google.com", totalLikes: 3}
     ]
 
@@ -18,8 +21,14 @@ export default function DashboardPage() {
             <h1 className="text-5xl text-black font-[Slackey] mt-10 text-center">{hangoutName}</h1>
 
             {/*Ranking*/}
-            <div className="bg-[#FAFAFA] text-black mt-15 w-3/4  shadow-md rounded-xl flex mx-auto">
+            <div className="bg-[#FAFAFA] text-black mt-15 w-3/4  shadow-md rounded-xl flex flex-col items-center mx-auto">
                 <h1 className="font-[Dongle] text-5xl font-bold text-center w-full p-5">Events</h1>
+                
+                {allActivities.map( activity =>
+                    <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
+                                addressLink={activity.addressLink} totalLikes={activity.totalLikes}/>
+                )}
+
             </div>
 
             {/* Availabilities*/}
