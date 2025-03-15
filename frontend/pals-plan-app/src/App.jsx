@@ -2,12 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import './App.css';
 
-import CreationPage from './pages/CreationPage';
+import SuggestionPage from './pages/SuggestionPAge';
 
 function App() {
 
   return (
-    <CreationPage/>
+    <SuggestionPage/>
   )
 }
 
