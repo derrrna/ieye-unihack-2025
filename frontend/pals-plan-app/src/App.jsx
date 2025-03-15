@@ -2,12 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 import './App.css';
 
-import CreationPage from '../pages/CreationPage';
+import AvailabilityPage from './pages/AvailabilityPage';
 
 function App() {
 
   return (
-    <CreationPage/>
+    <div className='h-full w-full'>
+    <AvailabilityPage/>
+
+    </div>
   )
 }
 
