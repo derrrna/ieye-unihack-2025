@@ -26,11 +26,6 @@ let hangoutSchema = new Schema({
         type: String
     },
 
-    link: {
-        type: String,
-        required: true
-    },
-
   attendees: [
     {
       type: Schema.Types.ObjectId,

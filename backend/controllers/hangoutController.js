@@ -1,6 +1,5 @@
 const Hangout = require('../models/Hangout');
 
-
 /**
  * Asynchronously retrieves a list of all hangouts from the database.
  *
@@ -38,13 +37,14 @@ const getHangouts = async (req, res) => {
 const createHangouts = async (req, res) => {
 
     try {
-        const {name, startDate, location, link, attendees} = req.body;
+        const {name, startDate, location} = req.body;
+        const attendees = []
 
-        const newHangout = new Hangout({name, startDate, location, link, attendees});
+        const newHangout = new Hangout({name, startDate, location, attendees});
 
         const savedHangout = await newHangout.save();
 
-        res.status(201).json(savedHangout);
+        res.status(201).json(savedHangout._id);
     } catch (error) {
         res.status(500).json({message: 'Failed to create hangout', error: error.message});
     }
