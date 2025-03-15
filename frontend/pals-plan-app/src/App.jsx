@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import './App.css';
 
-import CreationPage from '../pages/CreationPage';
+import CreationPage from './pages/CreationPage';
 
 function App() {
 

@@ -5,7 +5,12 @@ module.exports = {
       './src/**/*.{js,jsx,ts,tsx}',  // Adjust this path as per your project structure
     ],
     theme: {
-      extend: {},
+      extend: {
+        fontFamily: {
+          slackey: ["Slackey", "cursive"],
+          dongle: ["Dongle", "sans-serif"]
+        },
+      },
     },
     plugins: [
       require('daisyui'),
