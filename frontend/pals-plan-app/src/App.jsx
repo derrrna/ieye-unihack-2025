@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { BrowseerRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import LoginPage from './pages/LoginPage';
@@ -7,7 +8,11 @@ import LoginPage from './pages/LoginPage';
 function App() {
 
   return (
-    <LoginPage/>
+    <Router>
+        <Switch>
+            <Route path="/login" component={Login}/>
+        </Switch>
+    </Router>
   )
 }
 
