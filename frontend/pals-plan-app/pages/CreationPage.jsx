@@ -5,7 +5,20 @@ export default function CreationPage() {
 
     return (
         <div>
-            <h1 className="text-3xl"> Hi </h1>
+
+            {/* Content */}
+            <div className="flex flex-row">
+                
+                {/* Logo + Descriptive Text*/}
+                <div>
+                    <h1>hi</h1>
+                </div>
+
+                {/* Form */}
+                <div>
+                    <h1> hi</h1>
+                </div>
+            </div>
 
         </div>
     )
