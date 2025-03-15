@@ -37,6 +37,7 @@ const getHangouts = async (req, res) => {
 const createHangouts = async (req, res) => {
 
     try {
+        console.log(req.body)
         const {name, startDate, location} = req.body;
         const attendees = []
 
@@ -44,7 +45,7 @@ const createHangouts = async (req, res) => {
 
         const savedHangout = await newHangout.save();
 
-        res.status(201).json(savedHangout._id);
+        res.status(201).json({id: savedHangout._id});
     } catch (error) {
         res.status(500).json({message: 'Failed to create hangout', error: error.message});
     }
