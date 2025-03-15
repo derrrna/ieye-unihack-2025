@@ -20,7 +20,7 @@ export default function CreationPage() {
                         <h1>Hangout Name</h1>
                         <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl text-white rounded-2xl" />
                         <h1>Location</h1>
-                        <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl text-white rounded-2xl" />
+                        <input type="text" placeholder="Enter a meetup location here..." className="input mb-8 text-2xl text-white rounded-2xl" />
                         <h1>Date Range</h1>
                         <input type="date" className="input text-2xl text-white rounded-2xl mb-10"/>
                         <button class="btn bg-[#5E93E8] border-none text-xl w-1/4">+ Create</button>
