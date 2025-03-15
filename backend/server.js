@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,9 +26,11 @@ mongoose.connect(mongoUrl)
 
 const hangoutRoutes = require("./routes/hangoutRoutes.js")
 const userRoutes = require("./routes/userRoutes.js")
+const eventRoutes = require("./routes/eventRoutes.js")
 
 app.use("/hangout", hangoutRoutes)
 app.use("/user", userRoutes)
+app.use("/event", eventRoutes)
 
 // Start the server
 app.listen(PORT, () => {
