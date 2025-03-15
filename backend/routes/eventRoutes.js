@@ -4,4 +4,7 @@ const router = express.Router()
 
 router.get("/locations", eventController.getEvents)
 
+router.get("/generate", eventController.generateSuggestion);
+
+
 module.exports = router;
