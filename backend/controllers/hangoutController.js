@@ -72,10 +72,11 @@ const dates = async (req, res) => {
     for (let i = 0; i < 7; i++) {
       days.push(dayNames[currentDate.getDay()]);
       currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+        res.status(201).json({id: savedHangout._id});
+    } catch (error) {
+        res.status(500).json({message: 'Failed to create hangout', error: error.message});
     }
     res.status(200).json(days);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
   }
 };
 

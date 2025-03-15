@@ -3,10 +3,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import SuggestionPage from './pages/SuggestionPAge';
+import SuggestionPage from './pages/SuggestionPage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import LoginPage from './pages/LoginPage';
 import CreationPage from './pages/CreationPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
 
