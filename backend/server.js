@@ -11,8 +11,10 @@ app.get('/', (req, res) => {
 });
 
 const hangoutRoutes = require("./routes/hangoutRoutes.js")
+const userRoutes = require("./routes/userRoutes.js")
 
 app.use("/hangout", hangoutRoutes)
+app.use("/user", userRoutes)
 
 // Start the server
 app.listen(PORT, () => {
