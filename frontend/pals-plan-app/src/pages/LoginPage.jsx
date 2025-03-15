@@ -74,7 +74,7 @@ export default function LoginPage(){
                         onChange={(e) => setId(e.target.value)}>
                             <option value="">Log in as existing</option>
                             {users.map(user =>
-                                <option key={user.id} value={user.id}>{user.name}</option>
+                                <option key={user._id} value={user._id}>{JSON.stringify(user)}</option>
                             )}
                         </select>
                         <button type="submit" className="btn bg-[#5E93E8] border-none text-xl">Select your Name!</button>
