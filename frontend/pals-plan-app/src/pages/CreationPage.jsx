@@ -15,9 +15,14 @@ export default function CreationPage() {
 
             {/* Form */}
             <div className="lg:w-1/2 flex items-center justify-center">
-                <div className="lg:w-2/3 lg:h-3/4 bg-[#FFCF32] rounded-4xl shadow-md flex flex-col items-center justify-center">
-                    <h1> hello </h1>
-                    <h1> hello </h1>
+                <div className="lg:w-2/3 lg:h-3/4 bg-[#FFCF32] rounded-4xl shadow-md font-[Dongle] lg:text-4xl">
+                    <div className="p-20 text-white flex flex-col">
+                        <h1>Hangout Name</h1>
+                        <input type="text" placeholder="Enter hangout name here..." className="input mb-8 text-2xl bg-white text-[#1F100A] rounded-2xl" />
+                        <h1>Location</h1>
+                        <h1>Date Range</h1>
+                        <button class="btn bg-[#5E93E8] border-none text-xl">+ Create</button>
+                    </div>
                 </div>
             </div>
 
