@@ -25,8 +25,8 @@ export default function CreationPage() {
                             <Autocomplete
                                 apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
                                 onPlaceSelected={(place) => {
-                                const address = place.formatted_address; // You can customize this to get the exact part you want.
-                                setSelectedPlace(address); // Store the selected place in the state
+                                const address = place.formatted_address; 
+                                setSelectedPlace(address); 
                                 console.log(place);
                                 }}
                                 className="input mb-8 text-2xl text-black rounded-2xl"
