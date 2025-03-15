@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 /**
  * A Mongoose schema defining the structure of a user document in a MongoDB collection.
@@ -40,4 +40,4 @@ const userSchema = new mongoose.Schema({
  * related to the User entity, ensuring schema enforcement and supporting
  * various useful Mongoose-provided methods for handling data.
  */
-const User = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
