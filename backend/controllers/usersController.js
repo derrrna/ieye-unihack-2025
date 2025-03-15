@@ -1,17 +1,39 @@
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const Hangout = require("../models/Hangout");
 
 const createUser = async (req, res) => {
   try {
+    const hangoutId = new mongoose.Types.ObjectId(req.body.hangoutId);
+
+    if (!hangoutId) {
+      return res.status(400).json({ message: "Hangout ID is required" });
+    }
+
     if (!req.body.name) {
       return res.status(400).json({ message: "Name is required" });
     }
 
+    // Check if the hangout exists
+    const hangout = await Hangout.findById(hangoutId);
+    if (!hangout) {
+      return res.status(404).json({ message: "Hangout not found" });
+    }
+
+    // Create a new user
     const user = new User({
       name: req.body.name,
       availability: req.body.availability,
     });
     await user.save();
+
+    // Add user to attendees
+    await Hangout.findByIdAndUpdate(
+      hangoutId,
+      { $push: { attendees: user._id } },
+      { new: true }
+    );
+
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -70,8 +92,6 @@ const deleteUser = async (req, res) => {
     res.status(200).json({
       acknowledged: result.acknowledged,
     });
-
-      
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
