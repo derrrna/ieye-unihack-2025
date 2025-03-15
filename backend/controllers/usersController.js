@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
     // Create a new user
     const user = new User({
       name: req.body.name,
-      availability: req.body.availability,
+      availability: [],
     });
     await user.save();
 
@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
       { new: true }
     );
 
-    res.status(201).json(user);
+    res.status(201).json({id:user._id});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

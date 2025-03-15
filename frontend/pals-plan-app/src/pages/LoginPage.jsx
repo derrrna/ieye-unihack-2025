@@ -26,8 +26,42 @@ export default function LoginPage(){
 
         document.cookie = `hangout_${hangoutId}_user=${id}; path=/; max-age=86400`;
 
-        navigate(`/events/${hangoutId}`);
+        navigate(`/dashboard/${hangoutId}`);
     };
+
+    const handleRegistration = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target)
+        const formattedData = {
+            name: formData.get("name"),
+            hangoutId: formData.get("hangoutId"),
+        };
+    
+        try {
+            const response = await fetch("http://localhost:3000/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formattedData),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to submit form");
+            }
+
+            const data = await response.json();
+            const receivedId = data.id;
+
+            if (receivedId) {
+                document.cookie = `hangout_${hangoutId}_user=${receivedId}; path=/; max-age=86400`;
+                navigate(`/dashboard/${hangoutId}`);
+            }
+        } catch (error) {
+            console.error("Error submitting form: ", error)
+        }
+    }
 
     return (
         <div className="w-screen h-screen flex justify-center items-end sm:items-center bg-[url('/CreationPageBackground.png')] bg-cover">
@@ -38,6 +72,7 @@ export default function LoginPage(){
                         <h2 className='font-[Dongle] text-white font-bold'>Login</h2>
                         <select name="name" className='mb-3 bg-white rounded-2xl text-2xl pl-2 text-black'
                         onChange={(e) => setId(e.target.value)}>
+                            <option value="">Log in as existing</option>
                             {users.map(user =>
                                 <option key={user.id} value={user.id}>{user.name}</option>
                             )}
@@ -49,9 +84,13 @@ export default function LoginPage(){
                 {/*OR Line*/}
                 <hr className='mt-10 mb-10'></hr>
                 <div className='flex flex-col'>
-                    <h2 className='font-[Dongle] text-white font-bold'>New Pal</h2>
-                    <input type="text" placeholder="Enter name here..." className="w-full input mb-3 text-2xl bg-white text-black rounded-2xl" />
-                    <button className="btn bg-[#5E93E8] border-none text-xl">Pal Registration</button>
+                    <form onSubmit={handleRegistration}>
+                        <h2 className='font-[Dongle] text-white font-bold'>New Pal</h2>
+                        <input type="hidden" name="hangoutId" value={hangoutId}/>
+                        <input name="name" type="text" placeholder="Enter name here..." className="w-full input mb-3 text-2xl bg-white text-black rounded-2xl" />
+                        <button type="submit" className="btn bg-[#5E93E8] border-none text-xl">Pal Registration</button>    
+                    </form>
+
                 </div>
             </div>
         </div>

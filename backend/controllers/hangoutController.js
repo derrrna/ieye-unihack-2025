@@ -19,7 +19,7 @@ const getHangouts = async (req, res) => {
       return res.status(400).json({ message: "Hangout ID is required" });
     }
 
-    const hangouts = await Hangout.findById(id);
+    const hangouts = await Hangout.findById(id).populate("attendees");
     res.status(200).json(hangouts);
   } catch (error) {
     res
