@@ -16,11 +16,10 @@ export default function SuggestionPage() {
 
     return (
         
-        <div className="w-screen h-screen flex bg-[url('public/SuggestionPageBackground.png')] bg-cover">
-            {/* fix background issue */}
+        <div className="w-screen h-screen flex bg-white">
             
             {/* generator side*/}
-            <div className="w-1/2 h-full text-black">
+            <div className="w-1/2 h-full text-black bg-[url('public/SuggestionPageBackground.png')] bg-cover">
 
                 <h2 className="lg:text-2xl pt-20 pl-20 font-[Slackey] text-[#F8574F]">PalsPlan</h2>
 
@@ -35,7 +34,7 @@ export default function SuggestionPage() {
                     </div>
                     
                     {/* user don't know what to do*/}
-                    <h3 className="text-4xl mt-15"> No idea? </h3>
+                    <h3 className="text-4xl mt-5"> No idea? </h3>
                     <button className="btn mt-2 w-1/4 text-xl text-white bg-[#F8574F] border-none rounded-xl"> Suggest for me! </button>
 
                 </div>
