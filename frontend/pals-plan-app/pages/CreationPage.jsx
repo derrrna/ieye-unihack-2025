@@ -5,17 +5,17 @@ export default function CreationPage() {
 
     return (
         <div>
-
+            
             {/* Content */}
-            <div className="flex flex-row">
+            <div className="w-screen h-screen flex flex-row bg-gray-100">
                 
                 {/* Logo + Descriptive Text*/}
-                <div>
+                <div className="w-1/2">
                     <h1>hi</h1>
                 </div>
 
                 {/* Form */}
-                <div>
+                <div className="w-1/2">
                     <h1> hi</h1>
                 </div>
             </div>
