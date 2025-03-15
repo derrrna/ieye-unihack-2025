@@ -14,8 +14,10 @@ export default function CreationPage() {
             </div>
 
             {/* Form */}
-            <div className="lg:w-1/2">
-                <h1>hi</h1>
+            <div className="lg:w-1/2 h">
+                <div className="lg:w-2/3 lg:h-3/4 mx-auto bg-[#FFCF32]">
+                    <h1> hello </h1>
+                </div>
             </div>
 
         </div>
