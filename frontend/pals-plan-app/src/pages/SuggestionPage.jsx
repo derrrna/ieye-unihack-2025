@@ -23,6 +23,8 @@ export default function SuggestionPage() {
                     </div>
                     
                     {/* Don't know what to do*/}
+                    <h3 className="text-4xl mt-15"> No idea? </h3>
+                    <button className="btn mt-2 w-1/4 text-xl text-white bg-[#F8574F] border-none rounded-xl"> Suggest for me! </button>
 
                 </div>
 
