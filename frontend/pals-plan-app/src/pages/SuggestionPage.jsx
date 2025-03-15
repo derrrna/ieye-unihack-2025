@@ -31,8 +31,8 @@ export default function SuggestionPage() {
             </div>
 
             {/* location side*/}
-            <div className="w-1/2 h-full">
-                <h1>hi</h1>
+            <div className="w-1/2 h-full text-black font-[Dongle]">
+                <h1 className="text-6xl font-semibold pt-20">We Suggest...</h1>
             </div>
 
         </div>
