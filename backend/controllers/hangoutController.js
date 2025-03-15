@@ -70,4 +70,4 @@ const dates = async (req,res) => {
     }
 }
 
-module.exports = { createHangout, dates, getHangouts};
+module.exports = { createHangouts, dates, getHangouts};

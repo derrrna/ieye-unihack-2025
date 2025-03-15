@@ -23,8 +23,7 @@ let hangoutSchema = new Schema({
     },
 
     location: {
-        type: String,
-        required: true
+        type: String
     },
 
     link: {
