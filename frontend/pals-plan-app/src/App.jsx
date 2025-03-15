@@ -7,6 +7,7 @@ import SuggestionPage from './pages/SuggestionPage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import LoginPage from './pages/LoginPage';
 import CreationPage from './pages/CreationPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
     <Router>
         <Routes>
             <Route path="/" element={<CreationPage/>}/>
-            {/* <Route path="/dashboard/:hangoutId" element={<DashboardPage/>}/> */}
+            <Route path="/dashboard/:hangoutId" element={<DashboardPage/>}/>
             <Route path="/dashboard/:hangoutId/login" element={<LoginPage/>}/>
         </Routes>
     </Router>

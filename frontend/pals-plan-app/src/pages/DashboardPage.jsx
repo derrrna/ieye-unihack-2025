@@ -15,8 +15,10 @@ const DashboardPage = () => {
     }, {});
 
     if (cookies[`hangout_${hangoutId}_user`]) {
+      console.log("no redirecting")
       setName(cookies[`hangout_${hangoutId}_user`]);
     } else {
+      console.log("redirecting")
       navigate(`/dashboard/${hangoutId}/login`); // Redirect to login if no name found
     }
   }, [hangoutId, navigate]);
