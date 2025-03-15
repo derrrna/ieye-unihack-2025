@@ -16,9 +16,9 @@ const Day = () => {
       
       return (
         <div className="flex flex-1 flex-col  gap-3  justify-between">
-          <button onClick={() => onClicked("morning")} className={`flex-1 rounded-2xl  ${selectedTimes.morning ? "bg-blue-400" : "bg-white"}`}></button>
-          <button onClick={() => onClicked("afternoon")} className={`flex-1 rounded-2xl  ${selectedTimes.afternoon ? "bg-blue-400" : "bg-white"}`}></button>
-          <button onClick={() => onClicked("evening")} className={`flex-1 rounded-2xl ${selectedTimes.evening ? "bg-blue-400" : "bg-white"}`}></button>
+          <button onClick={() => onClicked("morning")} className={`flex-1 rounded-2xl btn ${selectedTimes.morning ? "bg-blue-400" : "bg-white"}`}></button>
+          <button onClick={() => onClicked("afternoon")} className={`flex-1 rounded-2xl btn ${selectedTimes.afternoon ? "bg-blue-400" : "bg-white"}`}></button>
+          <button onClick={() => onClicked("evening")} className={`flex-1 rounded-2xl btn ${selectedTimes.evening ? "bg-blue-400" : "bg-white"}`}></button>
         </div>
       )
 

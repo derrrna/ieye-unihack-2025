@@ -18,7 +18,7 @@ const daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
           {daysOfWeek.map((day, idx) => {
             return (
               <div key={idx} className="h-full flex flex-col flex-1 ">
-                <p className="text-center">{day}</p>
+                <p className="text-center pb-2">{day}</p>
                 <Day></Day>
               </div>
             )
