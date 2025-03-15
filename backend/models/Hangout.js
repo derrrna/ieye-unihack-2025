@@ -12,18 +12,24 @@ const Schema = mongoose.Schema;
  * - attendees: References the User model and identifies the participants of the hangout. This property is of type ObjectId and is required.
  */
 let hangoutSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  link: {
-    type: String,
-    required: true,
-  },
+    name: {
+        type: String,
+        required: true
+    },
+
+    startDate: {
+        type: Date,
+        required: true
+    },
+
+    location: {
+        type: String
+    },
+
+    link: {
+        type: String,
+        required: true
+    },
 
   attendees: [
     {
