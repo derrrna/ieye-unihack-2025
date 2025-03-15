@@ -1,4 +1,5 @@
 import React from "react";
+import LocationBlock from "../components/LocationBlock";
 
 export default function SuggestionPage() {
 
@@ -33,6 +34,13 @@ export default function SuggestionPage() {
             {/* location side*/}
             <div className="w-1/2 h-full text-black font-[Dongle]">
                 <h1 className="text-6xl font-semibold pt-20">We Suggest...</h1>
+                <div className="bg-grey w-6/7 h-3/4 flex flex-col">
+                    <LocationBlock/>
+                    <LocationBlock/>
+                    <LocationBlock/>
+                    <LocationBlock/>
+                    <LocationBlock/>
+                </div>
             </div>
 
         </div>
