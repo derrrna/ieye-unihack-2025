@@ -12,8 +12,18 @@ export default function SuggestionPage() {
 
                 <h2 className="lg:text-2xl pt-20 pl-20 font-[Slackey] text-[#F8574F]">PalsPlan</h2>
 
-                <div className="pl-50 mt-10 font-[Dongle] text-6xl font-bold">
-                    <h1> Activity Generator</h1>
+                <div className="pl-50 mt-10 font-[Dongle]">
+
+                    {/* Know what to do */}
+                    <h1 className="text-6xl font-bold"> Activity Generator</h1>
+                    <h3 className="text-4xl mt-5"> What plan you feeling? </h3>
+                    <div className="mt-3">
+                        <input type="text" placeholder="Enter an activity..." className="bg-[#EFEFEF] input rounded-xl text-xl" />
+                        <button className="btn ml-3 text-xl text-white bg-[#5E93E8] border-none rounded-xl"> Suggest </button>
+                    </div>
+                    
+                    {/* Don't know what to do*/}
+
                 </div>
 
             </div>
