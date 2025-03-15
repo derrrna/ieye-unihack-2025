@@ -1,20 +1,53 @@
-import React from "react";
-
+import React, { useState } from "react";
 import Calendar from "../components/calendar.jsx";
-
-//TODO: Get user id from cookies
+import { useEffect } from "react";
 
 export default function AvailabilityPage() {
   const userId = "67d51ece0ce6ae79312cfc8b";
+  const [availability, setAvailability] = useState([]);
+
+  //Get user info when component loads
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user?id=${userId}`);
+        const data = await response.json();
+
+        // Assuming the backend returns availability in the required format
+        if (data.availability) {
+          setAvailability(data.availability);
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [userId]);
+
+  useEffect(() => {
+    console.log("Updated availability:", availability);
+  }, [availability]);
+
+  const handleAvailabilityChange = (updatedAvailability) => {
+    const formattedAvailability = Object.entries(updatedAvailability).map(
+      ([day, timePeriods]) => ({
+        day,
+        timePeriod: timePeriods,
+      })
+    );
+    setAvailability(formattedAvailability);
+  };
 
   const onSubmit = async () => {
     console.log("Submitting availability for user:", userId);
+    console.log("Availability:", availability);
 
     try {
       const response = await fetch("http://localhost:3000/user", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: userId, availability: [] }), // Replace with actual availability data
+        body: JSON.stringify({ id: userId, availability }),
       });
 
       const data = await response.json();
@@ -33,11 +66,14 @@ export default function AvailabilityPage() {
           </h1>
         </div>
         <div className="h-96 mt-10 mr-10">
-          <Calendar></Calendar>
+          <Calendar onAvailabilityChange={handleAvailabilityChange}></Calendar>
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center">
-        <button onClick={onSubmit} className="btn border-0 bg-[#08BA63] text-white text-lg">
+        <button
+          onClick={onSubmit}
+          className="btn border-0 bg-[#08BA63] text-white text-lg"
+        >
           Submit
         </button>
       </div>
