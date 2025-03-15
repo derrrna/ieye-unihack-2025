@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -32,12 +32,13 @@ let hangoutSchema = new Schema({
         required: true
     },
 
-    attendees: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
+  attendees: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  ],
 });
 
-const Hangout = mongoose.model('Hangout', hangoutSchema);
-module.exports = Hangout;
+module.exports = mongoose.model("Hangout", hangoutSchema);
