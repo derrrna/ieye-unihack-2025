@@ -39,7 +39,7 @@ export default function SuggestionPage() {
                     <LocationBlock/>
                     <LocationBlock/>
                     <LocationBlock/>
-                    <LocationBlock/>
+
                 </div>
             </div>
 
