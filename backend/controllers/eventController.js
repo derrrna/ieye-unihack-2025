@@ -46,7 +46,7 @@ const generateSuggestion = async (req, res) => {
       },
       {
         role: "user",
-        content: `Give me 5 ideas related to ${category}`,
+        content: `Give me 20 ideas related to ${category}`,
       },
     ],
   });
