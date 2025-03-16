@@ -21,6 +21,7 @@ const createEvent = async (req,res) => {
       suggestingUser: req.body.userId,
     })
 
+    await event.save()
     await Hangout.findByIdAndUpdate(
       hangoutId,
       { $push: {events: event._id}},

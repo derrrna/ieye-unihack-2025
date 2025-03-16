@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Calendar from "../components/calendar.jsx";
 import { useEffect } from "react";
-import { useParams} from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 
 export default function AvailabilityPage() {
   const { hangoutId } = useParams();
+  const navigate = useNavigate();
   const [availability, setAvailability] = useState([]);
   const [userId, setUserId] = useState(null)
   // get cookie of user
@@ -65,6 +66,8 @@ export default function AvailabilityPage() {
 
       const data = await response.json();
       console.log("Response from backend:", data);
+      navigate(`/dashboard/${hangoutId}`);
+      
     } catch (error) {
       console.error("Error submitting availability:", error);
     }

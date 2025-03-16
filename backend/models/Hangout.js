@@ -40,7 +40,7 @@ let hangoutSchema = new Schema({
       ref: "Event",
       required: true,
     }
-  ]
+  ],
 });
 
 module.exports = mongoose.model("Hangout", hangoutSchema);

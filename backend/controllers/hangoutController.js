@@ -13,14 +13,15 @@ const Hangout = require("../models/Hangout");
  */
 const getHangouts = async (req, res) => {
   try {
+    
     const id = new mongoose.Types.ObjectId(req.params.id);
 
     if (!id) {
       return res.status(400).json({ message: "Hangout ID is required" });
     }
-
-    const hangouts = await Hangout.findById(id).populate("attendees");
+    const hangouts = await Hangout.findById(id).populate("events").populate("attendees");
     res.status(200).json(hangouts);
+    
   } catch (error) {
     res
       .status(500)
@@ -47,7 +48,7 @@ const createHangouts = async (req, res) => {
   try {
     const { name, startDate, location } = req.body;
     const attendees = [];
-    const events = []
+    const events = [];
 
     const newHangout = new Hangout({ name, startDate, location, attendees, events });
 
