@@ -27,6 +27,11 @@ export default function DashboardPage() {
         {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 1}
     ]
 
+    {/*TODO: This should redirect to the suggestions page.*/}
+    function handleSuggestButton() {
+
+    }
+
     return (
         <div className="bg-[url('public/DashboardPageBackground.png')] max-w-screen h-2lvh flex flex-col">
             {/*Logo*/}
@@ -48,8 +53,8 @@ export default function DashboardPage() {
                     <img src="/ActivityIcon.svg" className="w-8 mt-0 pb-2 mr-2"/>
                     <h1 className="font-[Dongle] text-5xl font-bold  w-full">Suggested Activities</h1>
                 </div>
-                
-                <button class="btn bg-[#08BA63] mb-10  border-none rounded-3xl">+ Suggest an Activity</button>
+
+                <button class="btn bg-[#08BA63] mb-10  border-none rounded-3xl" onClick={handleSuggestButton}>+ Suggest an Activity</button>
     
                 {allActivities.map( (activity) =>
                     <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
