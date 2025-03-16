@@ -7,8 +7,8 @@ export default function AvailabilityBlock(props) {
             <h2 className="ml-8">{props.availabilityDate}</h2>
             <h2 className="ml-8 font-[Slackey] text-xl mr-auto">{props.availabilityDay}, {props.availabilityTime}</h2>
 
-            <div className="bg-[#FAFA] w-1/5 justify-end rounded-4xl">
-                <h1 className="text-center text-3xl p-2">{props.totalFree} pals are free!</h1>
+            <div className="bg-[#08BA63] w-1/5 justify-end rounded-4xl shadow-lg animate-bounce">
+                <h1 className="text-center text-3xl p-2 text-white font-bold">{props.totalFree} pals are free!</h1>
             </div>
         </div>
     )
