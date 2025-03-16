@@ -29,8 +29,11 @@ export default function DashboardPage() {
 
             {/*Ranking TODO: add suggestion, make scrollable*/}
             <div className="bg-white text-black mt-15 w-3/4 shadow-lg max-h-100 rounded-3xl flex flex-col items-center mx-auto pb-15 overflow-y-scroll">
-                <h1 className="font-[Dongle] text-5xl font-bold text-center w-full p-5">Events</h1>
-                
+                <div className="flex m-5">
+                    <img src="/ActivityIcon.svg" className="w-8 mt-0 pb-2 mr-2"/>
+                    <h1 className="font-[Dongle] text-5xl font-bold  w-full">Activities</h1>
+                </div>
+    
                 {allActivities.map( activity =>
                     <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
                                 addressLink={activity.addressLink} totalLikes={activity.totalLikes}/>
