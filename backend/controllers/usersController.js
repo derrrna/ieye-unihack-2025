@@ -62,7 +62,7 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id, name, availability } = req.body;
-
+    console.log(req.body)
     if (!id) {
       return res.status(400).json({ message: "User ID is required" });
     }

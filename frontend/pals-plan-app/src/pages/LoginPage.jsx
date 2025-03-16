@@ -56,7 +56,7 @@ export default function LoginPage(){
 
             if (receivedId) {
                 document.cookie = `hangout_${hangoutId}_user=${receivedId}; path=/; max-age=86400`;
-                navigate(`/dashboard/${hangoutId}`);
+                navigate(`/dashboard/${hangoutId}/availability`);
             }
         } catch (error) {
             console.error("Error submitting form: ", error)
@@ -74,7 +74,7 @@ export default function LoginPage(){
                         onChange={(e) => setId(e.target.value)}>
                             <option value="">Log in as existing</option>
                             {users.map(user =>
-                                <option key={user._id} value={user._id}>{JSON.stringify(user)}</option>
+                                <option key={user._id} value={user._id}>{user.name}</option>
                             )}
                         </select>
                         <button type="submit" className="btn bg-[#5E93E8] border-none text-xl">Select your Name!</button>

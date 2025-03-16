@@ -1,4 +1,3 @@
-const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -16,11 +15,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-  origin: "http://localhost:5173",
-  methods: "POST",
-  credentials: true
-}));
 // Routes
 app.get("/", (req, res) => {
   res.send("Hello, World!");
