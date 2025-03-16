@@ -21,7 +21,7 @@ export default function DashboardPage() {
             <h1 className="text-5xl text-black font-[Slackey] mt-10 text-center">{hangoutName}</h1>
 
             {/*Ranking*/}
-            <div className="bg-[#FAFAF] text-black mt-15 w-3/4  shadow-lg rounded-3xl flex flex-col items-center mx-auto pb-15">
+            <div className="bg-white text-black mt-15 w-3/4  shadow-lg rounded-3xl flex flex-col items-center mx-auto pb-15">
                 <h1 className="font-[Dongle] text-5xl font-bold text-center w-full p-5">Events</h1>
                 
                 {allActivities.map( activity =>
@@ -32,7 +32,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Availabilities*/}
-            <div className="bg-[#FAFAF] text-black mt-15 w-3/4  shadow-md rounded-xl flex mx-auto">
+            <div className="bg-white text-black mt-15 w-3/4  shadow-md rounded-xl flex mx-auto pb-15">
                 <h1 className="font-[Dongle] text-5xl font-bold text-center w-full p-5">Availabilities</h1>
             </div>
 
