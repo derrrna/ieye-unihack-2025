@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import EventBlock from "../components/EventBlock";
 
-export default function DashboardPage() {
+const DashboardPage = () => {
+  const { hangoutId } = useParams();
+  const navigate = useNavigate();
+  const [name, setName] = useState(null);
+
+  useEffect(() => {
+    // Get the user's name from cookies
+    const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+      const [key, value] = cookie.split("=");
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    if (cookies[`hangout_${hangoutId}_user`]) {
+      console.log("no redirecting")
+      setName(cookies[`hangout_${hangoutId}_user`]);
+    } else {
+      console.log("redirecting")
+      navigate(`/dashboard/${hangoutId}/login`); // Redirect to login if no name found
+    }
+  }, [hangoutId, navigate]);
+
 
     const hangoutName = "Hangout Name";
     const meetupLocation = "Melbourne City";
