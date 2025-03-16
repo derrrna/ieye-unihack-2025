@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import Day from '../components/day.jsx';
+import { useParams} from "react-router-dom";
 
 const Calendar = ({ onAvailabilityChange }) => {
-  const daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+  //const daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+
+    const [daysOfWeek, setDaysOfWeek] = useState([]);
+    const { hangoutId } = useParams();
+    useEffect(() => {
+        fetch(`http://localhost:3000/hangout/${hangoutId}/dates`, {
+            headers: {
+                "Content-Type": "applications/json",
+            },
+        }).then((res)=> {
+            return res.json();
+        }).then((data) => {
+            setDaysOfWeek(data.days);
+            console.log(daysOfWeek)
+        });
+    },[])
+
   const [availability, setAvailability] = useState({});
 
   const handleTimesChange = (dayName, selectedTimePeriods) => {
