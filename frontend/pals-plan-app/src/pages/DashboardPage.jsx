@@ -4,30 +4,101 @@ import EventBlock from "../components/EventBlock";
 import AvailabilityBlock from "../components/AvailabilityBlock";
 
 export default function CreationPage() {
-  const { hangoutId } = useParams();
-  const navigate = useNavigate();
-  const [name, setName] = useState(null);
+	const { hangoutId } = useParams();
+	const navigate = useNavigate();
+	const [name, setName] = useState(null);
+	const [numberOfAttendees, setNumberOfAttendees] = useState(0);
+  const [topAvailabilities, setTopAvailabilities] = useState([]);
   const [hangout, setHangout] = useState();
 
-  useEffect(() => {
-    // Get the user's name from cookies
-    const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
-      const [key, value] = cookie.split("=");
-      acc[key] = value;
-      return acc;
-    }, {});
+	const getUserAvailabilities = async () => {
+		try {
+			const response = await fetch(
+				`http://localhost:3000/hangout/${hangoutId}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 
-    if (cookies[`hangout_${hangoutId}_user`]) {
-      console.log("no redirecting")
-      setName(cookies[`hangout_${hangoutId}_user`]);
-    } else {
-      console.log("redirecting")
-      navigate(`/dashboard/${hangoutId}/login`); // Redirect to login if no name found
-    }
-  }, [hangoutId, navigate]);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
 
+			const data = await response.json(); // Parse the JSON data
+			const attendees = data.attendees;
+			setNumberOfAttendees(attendees.length);
+
+			// Array of availability objects for each attendee
+			const availabilities = data.attendees.map((attendee) => {
+				return attendee.availability;
+			});
+
+			console.log("availabilities", availabilities);
+
+			// Flatten the array of arrays into a single array
+			const flattenedAvailabilities = availabilities.flat();
+
+			const availabilityCounts = flattenedAvailabilities.reduce(
+				(acc, availability) => {
+					if (availability.timePeriod.length === 0) return acc; // Skip if no timePeriod
+
+					// Iterate over each timePeriod and create a separate key for each
+					availability.timePeriod.forEach((time) => {
+						const key = `${availability.day}-${time}`; 
+						if (!acc[key]) {
+							acc[key] = {
+								day: availability.day,
+								timePeriod: [time], // Store the individual timePeriod as an array
+								count: 0,
+							};
+						}
+						acc[key].count += 1; // Increment the count for this day-timePeriod combination
+					});
+
+					return acc;
+				},
+				{}
+			);
+
+			// Convert the result back into an array
+			const groupedAvailabilities = Object.values(availabilityCounts);
+
+			// Sort by the top availabilities
+			groupedAvailabilities.sort((a, b) => b.count - a.count);
+
+			// Keep only the top 5 availabilities
+			const topAvailabilities = groupedAvailabilities.slice(0, 5);
+
+            setTopAvailabilities(topAvailabilities);
+		} catch (error) {
+			console.error("Error fetching user availabilities:", error);
+		}
+	};
+
+	useEffect(() => {
+		// Get the user's name from cookies
+		const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+			const [key, value] = cookie.split("=");
+			acc[key] = value;
+			return acc;
+		}, {});
+
+		if (cookies[`hangout_${hangoutId}_user`]) {
+			console.log("no redirecting");
+			setName(cookies[`hangout_${hangoutId}_user`]);
+		} else {
+			console.log("redirecting");
+			navigate(`/dashboard/${hangoutId}/login`); // Redirect to login if no name found
+		}
+
+		getUserAvailabilities();
+	}, [hangoutId, navigate]);
+  
     useEffect(() => {
-        fetch(`http://localhost:3000/hangout/${hangoutId}`, {
+       fetch(`http://localhost:3000/hangout/${hangoutId}`, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -39,29 +110,8 @@ export default function CreationPage() {
         });
     },[hangoutId])
 
-    const hangoutName = "Hangout Name";
-    const meetupLocation = "Melbourne City";
-    const shareLink = `http://localhost:5173/dashboard/${hangoutId}`;
-    const totalPeople = 5;
-
-    {/* array containing all activities and their details*/}
-    const allActivities = [
-        {id: 0,  activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3},
-        {id: 1, activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3},
-        {id: 2, activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3},
-        {id: 3, activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3},
-        {id: 3, activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3}
-    ]
-
-    {/* array containing top 5 availabilities. SHOULD BE SORTED BY TOTALFREE THIS POINT*/}
-    const topAvailabilities = [
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 5},
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 4},
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 3},
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 2},
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 1}
-    ]
-
+	const shareLink = `http://localhost:5173/dashboard/${hangoutId}`;
+  
     {/*TODO: This should redirect to the suggestions page.*/}
     function handleSuggestButton() {
       navigate(`/dashboard/${hangoutId}/suggestion`);
@@ -98,19 +148,28 @@ export default function CreationPage() {
             </div>
 
             {/* Availabilities*/}
-            <div className="bg-white text-black mt-15 w-3/4 shadow-md rounded-xl items-center flex mx-auto mb-10 pb-15 flex-col">
-                <div className="flex items-center m-5 w-full justify-center">
-                    <img src="/AvailabilitiesIcon.svg" className="w-6 mt-0 pb-3 mr-4" />
-                    <h1 className="font-[Dongle] text-5xl font-bold">Availabilities</h1>
-                </div>
+			<div className="bg-white text-black mt-15 w-3/4 shadow-md rounded-xl items-center flex mx-auto mb-10 pb-15 flex-col">
+				<div className="flex items-center m-5 w-full justify-center">
+					<img
+						src="/AvailabilitiesIcon.svg"
+						className="w-6 mt-0 pb-3 mr-4"
+					/>
+					<h1 className="font-[Dongle] text-5xl font-bold">
+						Availabilities
+					</h1>
+				</div>
 
-                {topAvailabilities.map((availability, index) => 
-                        <AvailabilityBlock availabilityDate={availability.availabilityDate} totalFree={availability.totalFree} index={index}
-                                            availabilityDay={availability.availabilityDay} availabilityTime={availability.availabilityTime}
-                                            totalPeople={totalPeople}/>
-                    )}
-
-            </div>
+				{topAvailabilities.map((availability, index) => (
+					<AvailabilityBlock
+						availabilityDate={availability.availabilityDate}
+						totalFree={availability.count}
+						index={index}
+						availabilityDay={availability.day}
+						availabilityTime={availability.timePeriod[0]}
+						totalPeople={numberOfAttendees}
+					/>
+				))}
+			</div>
 
         </div>
     )
