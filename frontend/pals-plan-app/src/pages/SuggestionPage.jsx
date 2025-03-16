@@ -1,8 +1,9 @@
 import React from "react";
 import LocationBlock from "../components/LocationBlock";
+import { useParams} from "react-router-dom";
 
 export default function SuggestionPage() {
-
+    const { hangoutId } = useParams();
     /*NOTE: this array should contain the top 5 locations suggested by the AI. For now this is hardcoded.*/
     /* Refer to line 48 to see where these objects are used*/
     const topLocations = [
@@ -19,7 +20,7 @@ export default function SuggestionPage() {
         <div className="w-screen h-screen flex bg-white">
             
             {/* generator side*/}
-            <div className="w-1/2 h-full text-black bg-[url('public/SuggestionPageBackground.png')] bg-cover">
+            <div className="w-1/2 h-full text-black bg-[url('/SuggestionPageBackground.png')] bg-cover">
 
                 <h2 className="lg:text-2xl pt-20 pl-20 font-[Slackey] text-[#F8574F]">PalsPlan</h2>
 
@@ -29,10 +30,13 @@ export default function SuggestionPage() {
                     <h1 className="text-6xl font-bold"> Activity Generator</h1>
                     <h3 className="text-4xl mt-5"> What plan you feeling? </h3>
                     <div className="mt-3">
-                        <input type="text" placeholder="Enter an activity..." className="bg-[#EFEFEF] input rounded-xl text-xl" />
-                        <button className="btn ml-3 text-xl text-white bg-[#5E93E8] border-none rounded-xl"> Suggest </button>
+                    <form action={`http://localhost:3000/event/${hangoutId}/locations`}>
+                            <input type="text" name="name" placeholder="Enter an activity..." className="bg-[#EFEFEF] input rounded-xl text-xl" />
+                            <button type="submit" className="btn ml-3 text-xl text-white bg-[#5E93E8] border-none rounded-xl"> Suggest </button>
+                        </form>
+
                     </div>
-                    
+                
                     {/* user don't know what to do*/}
                     <h3 className="text-4xl mt-5"> No idea? </h3>
                     <button className="btn mt-2 w-1/4 text-xl text-white bg-[#F8574F] border-none rounded-xl"> Suggest for me! </button>

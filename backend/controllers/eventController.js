@@ -2,6 +2,7 @@ const OpenAI = require("openai");
 const dotenv = require("dotenv");
 
 const Event = require('../models/Event');
+const Hangout = require("../models/Hangout");
 const axios = require('axios');
 const API_KEY = process.env.GOOGLE_API_KEY;
 
@@ -35,11 +36,14 @@ const generateSuggestion = async (req, res) => {
 const getEvents = async (req, res) => {
     try{
         // location and name collected from form
-        const activityLocation = req.query.activityLocation;
-        const activityName = req.query.activityName;
+        const hangoutId = req.params.id;
+        const hangout = await Hangout.findById(hangoutId);
+        let activityLocation = hangout.location
+        const activityName = req.query.name;
 
         // insert location and name into Google API
         const searchQuery = `${activityName} in ${activityLocation}`;
+        console.log(searchQuery)
         const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&key=${API_KEY}`;
 
         const response = await axios.get(url);

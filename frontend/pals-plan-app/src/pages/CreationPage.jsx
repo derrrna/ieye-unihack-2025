@@ -10,7 +10,7 @@ export default function CreationPage() {
         const formData = new FormData(event.target)
         const formattedData = {
             name: formData.get("name"),
-            selectedPlace: formData.get("selectedPlace"),
+            location: formData.get("selectedPlace"),
             startDate: formData.get("startDate"),
         };
     
