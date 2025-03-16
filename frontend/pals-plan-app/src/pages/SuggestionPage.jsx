@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import LocationBlock from "../components/LocationBlock";
 import { useParams} from "react-router-dom";
 
@@ -7,6 +7,19 @@ export default function SuggestionPage() {
     /*NOTE: this array should contain the top 5 locations suggested by the AI. For now this is hardcoded.*/
     /* Refer to line 48 to see where these objects are used*/
     const [topLocations, setTopLocations] = useState([]);
+
+    const [userId, setUserId] = useState(null)
+    // get cookie of user
+    useEffect(() => {
+        // Get the user's name from cookies
+        const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+        const [key, value] = cookie.split("=");
+        acc[key] = value;
+        return acc;
+        }, {});
+
+        setUserId(cookies[`hangout_${hangoutId}_user`]);
+    }, []);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -67,7 +80,7 @@ export default function SuggestionPage() {
                 {/*NOTE: For each object in the array, it creates a LocationBlock component and fills in that location's unique details.*/}
                 <div className="bg-grey w-6/7 h-3/4 flex flex-col">
                     {topLocations.map( (location) =>
-                        <LocationBlock locationName ={location.name} address={location.address}/>
+                        <LocationBlock locationName ={location.name} address={location.address} suggestingUser={userId} hangoutId={hangoutId}/>
                     )}
                 </div>
 

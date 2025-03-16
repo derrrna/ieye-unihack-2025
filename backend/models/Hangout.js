@@ -33,6 +33,14 @@ let hangoutSchema = new Schema({
       required: true,
     },
   ],
+
+  events: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Event",
+      required: true,
+    }
+  ]
 });
 
 module.exports = mongoose.model("Hangout", hangoutSchema);

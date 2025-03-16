@@ -47,8 +47,9 @@ const createHangouts = async (req, res) => {
   try {
     const { name, startDate, location } = req.body;
     const attendees = [];
+    const events = []
 
-    const newHangout = new Hangout({ name, startDate, location, attendees });
+    const newHangout = new Hangout({ name, startDate, location, attendees, events });
 
     const savedHangout = await newHangout.save();
 
