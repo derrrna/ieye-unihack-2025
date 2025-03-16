@@ -13,14 +13,15 @@ const Hangout = require("../models/Hangout");
  */
 const getHangouts = async (req, res) => {
   try {
+    
     const id = new mongoose.Types.ObjectId(req.params.id);
 
     if (!id) {
       return res.status(400).json({ message: "Hangout ID is required" });
     }
-
-    const hangouts = await Hangout.findById(id).populate("attendees");
+    const hangouts = await Hangout.findById(id).populate("events").populate("attendees");
     res.status(200).json(hangouts);
+    
   } catch (error) {
     res
       .status(500)
@@ -47,8 +48,9 @@ const createHangouts = async (req, res) => {
   try {
     const { name, startDate, location } = req.body;
     const attendees = [];
+    const events = [];
 
-    const newHangout = new Hangout({ name, startDate, location, attendees });
+    const newHangout = new Hangout({ name, startDate, location, attendees, events });
 
     const savedHangout = await newHangout.save();
 
@@ -62,7 +64,7 @@ const createHangouts = async (req, res) => {
 
 const dates = async (req, res) => {
   try {
-    const hangoutId = new mongoose.Types.req.query.id();
+    const hangoutId = new mongoose.Types.ObjectId(req.params.id);
     const hangout = await Hangout.findById(hangoutId);
     let currentDate = hangout.startDate;
     const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
@@ -72,9 +74,8 @@ const dates = async (req, res) => {
     for (let i = 0; i < 7; i++) {
       days.push(dayNames[currentDate.getDay()]);
       currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-        res.status(201).json({id: savedHangout._id});
-    } 
-    res.status(200).json(days);
+    }
+    res.status(200).json({days: days});
     }   catch (error) {
         res.status(500).json({message: 'Failed to create hangout', error: error.message});
   }
@@ -133,5 +134,7 @@ const addAttendee = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
 
 module.exports = { createHangouts, dates, getHangouts };

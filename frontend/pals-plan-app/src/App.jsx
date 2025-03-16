@@ -1,5 +1,4 @@
 import React from "react";
-// import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -9,7 +8,6 @@ import LoginPage from './pages/LoginPage';
 import CreationPage from './pages/CreationPage';
 import DashboardPage from './pages/DashboardPage';
 
-
 function App() {
   return (
     <Router>
@@ -18,6 +16,7 @@ function App() {
         <Route path="/dashboard/:hangoutId" element={<DashboardPage />} />
         <Route path="/dashboard/:hangoutId/login" element={<LoginPage />} />
         <Route path="/dashboard/:hangoutId/availability" element={<AvailabilityPage />} />
+        <Route path="/dashboard/:hangoutId/suggestion" element={<SuggestionPage />} />
       </Routes>
     </Router>
   );

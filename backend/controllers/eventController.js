@@ -1,7 +1,8 @@
 const OpenAI = require("openai");
 const dotenv = require("dotenv");
-
+const mongoose = require("mongoose");
 const Event = require('../models/Event');
+const Hangout = require("../models/Hangout");
 const axios = require('axios');
 const API_KEY = process.env.GOOGLE_API_KEY;
 
@@ -9,6 +10,31 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY,
 });
 
+const createEvent = async (req,res) => {
+  try {
+    const hangoutId = new mongoose.Types.ObjectId(req.body.hangoutId);
+    console.log(req.body)
+    const event = new Event({
+      name: req.body.name,
+      location: req.body.location,
+      likes: 0,
+      suggestingUser: req.body.userId,
+    })
+
+    await event.save()
+    await Hangout.findByIdAndUpdate(
+      hangoutId,
+      { $push: {events: event._id}},
+      { new: true }
+    );
+
+    await event.save();
+
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
 const generateSuggestion = async (req, res) => {
   const category = req.query.category;
 
@@ -23,7 +49,7 @@ const generateSuggestion = async (req, res) => {
       },
       {
         role: "user",
-        content: `Give me 5 ideas related to ${category}`,
+        content: `Give me 20 ideas related to ${category}`,
       },
     ],
   });
@@ -35,11 +61,14 @@ const generateSuggestion = async (req, res) => {
 const getEvents = async (req, res) => {
     try{
         // location and name collected from form
-        const activityLocation = req.query.activityLocation;
-        const activityName = req.query.activityName;
+        const hangoutId = req.params.id;
+        const hangout = await Hangout.findById(hangoutId);
+        let activityLocation = hangout.location
+        const activityName = req.body.name;
 
         // insert location and name into Google API
         const searchQuery = `${activityName} in ${activityLocation}`;
+        console.log(searchQuery)
         const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&key=${API_KEY}`;
 
         const response = await axios.get(url);
@@ -48,8 +77,8 @@ const getEvents = async (req, res) => {
             name: place.name,
             address: place.formatted_address,
         }));
-
-        res.json({ searchQuery, matchingPlaces: places});
+        console.log(places)
+        res.json({ matchingPlaces: places.slice(0,5)});
 
     } catch (error) {
         console.error('Error processing request:', error);
@@ -58,5 +87,5 @@ const getEvents = async (req, res) => {
 }
 
 module.exports = {
-  generateSuggestion, getEvents
+  generateSuggestion, getEvents, createEvent
 };
