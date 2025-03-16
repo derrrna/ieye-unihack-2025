@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import Calendar from "../components/calendar.jsx";
 import { useEffect } from "react";
+import { useParams} from "react-router-dom";
 
 export default function AvailabilityPage() {
-  const userId = "67d51ece0ce6ae79312cfc8b";
+  const { hangoutId } = useParams();
   const [availability, setAvailability] = useState([]);
+  const [userId, setUserId] = useState(null)
+  // get cookie of user
+  useEffect(() => {
+    // Get the user's name from cookies
+    const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+      const [key, value] = cookie.split("=");
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    setUserId(cookies[`hangout_${hangoutId}_user`]);
+  }, []);
 
   //Get user info when component loads
   useEffect(() => {
@@ -58,10 +71,10 @@ export default function AvailabilityPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-[url('public/AvailabilityPageBackground.png')] bg-cover">
+    <div className="h-screen flex flex-col bg-[url('/AvailabilityPageBackground.png')] bg-cover text-white">
       <div className="flex flex-col bg-[#FFCF32]  p-8 mx-50 mt-16 rounded-2xl ">
         <div>
-          <h1 className="text-center text-5xl font-[Slackey]">
+          <h1 className="drop-shadow-lg text-center text-5xl font-[Slackey]">
             My Availabilities
           </h1>
         </div>
