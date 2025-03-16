@@ -14,7 +14,6 @@ export default function EventBlock(props) {
 
     return (
         <button href={props.addressLink} className=" w-4/5 h-18 rounded-2xl shadow-xl m-2 btn btn-primary justify-start" onClick={handleEventClick}>
-            {/* add onClick/link feature*/}
             
             <p className="font-[Dongle] font-bold text-4xl mr-auto">{props.activityName} at {props.locationName}</p>
 
