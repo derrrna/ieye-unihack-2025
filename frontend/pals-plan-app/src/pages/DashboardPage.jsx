@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import EventBlock from "../components/EventBlock";
 import AvailabilityBlock from "../components/AvailabilityBlock";
 
-const DashboardPage = () => {
+export default function CreationPage() {
   const { hangoutId } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState(null);
