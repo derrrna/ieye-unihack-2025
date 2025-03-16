@@ -7,6 +7,7 @@ export default function DashboardPage() {
     const hangoutName = "Hangout Name";
     const meetupLocation = "Melbourne City";
     const shareLink = "https://google.com";
+    const totalPeople = 5;
 
     {/* array containing all activities and their details*/}
     const allActivities = [
@@ -48,7 +49,7 @@ export default function DashboardPage() {
                     <h1 className="font-[Dongle] text-5xl font-bold  w-full">Suggested Activities</h1>
                 </div>
     
-                {allActivities.map( activity =>
+                {allActivities.map( (activity) =>
                     <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
                                 addressLink={activity.addressLink} totalLikes={activity.totalLikes}/>
                 )}
@@ -64,7 +65,8 @@ export default function DashboardPage() {
 
                 {topAvailabilities.map((availability, index) => 
                         <AvailabilityBlock availabilityDate={availability.availabilityDate} totalFree={availability.totalFree} index={index}
-                                            availabilityDay={availability. availabilityDay} availabilityTime={availability.availabilityTime}/>
+                                            availabilityDay={availability.availabilityDay} availabilityTime={availability.availabilityTime}
+                                            totalPeople={totalPeople}/>
                     )}
 
             </div>
