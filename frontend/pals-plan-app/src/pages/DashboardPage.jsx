@@ -62,8 +62,8 @@ export default function DashboardPage() {
                     <h1 className="font-[Dongle] text-5xl font-bold">Availabilities</h1>
                 </div>
 
-                {topAvailabilities.map(availability => 
-                        <AvailabilityBlock availabilityDate={availability.availabilityDate} totalFree={availability.totalFree}
+                {topAvailabilities.map((availability, index) => 
+                        <AvailabilityBlock availabilityDate={availability.availabilityDate} totalFree={availability.totalFree} index={index}
                                             availabilityDay={availability. availabilityDay} availabilityTime={availability.availabilityTime}/>
                     )}
 
