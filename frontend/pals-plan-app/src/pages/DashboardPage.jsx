@@ -1,5 +1,6 @@
 import React from "react";
 import EventBlock from "../components/EventBlock";
+import AvailabilityBlock from "../components/AvailabilityBlock";
 
 export default function DashboardPage() {
 
@@ -16,9 +17,13 @@ export default function DashboardPage() {
         {id: 3, activityName: "Ice Skating", locationName: "O'Brien IceHouse", addressLink: "https://google.com", totalLikes: 3}
     ]
 
-    {/* array containing top 5 availabilities TODO: add ID*/}
+    {/* array containing top 5 availabilities. SHOULD BE SORTED BY TOTALFREE THIS POINT*/}
     const topAvailabilities = [
-        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 5}
+        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 5},
+        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 4},
+        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 3},
+        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 2},
+        {availabilityDate: "13/2/25", availabilityDay: "Thursday", availabilityTime: "Afternoon", totalFree: 1}
     ]
 
     return (
@@ -40,7 +45,7 @@ export default function DashboardPage() {
             <div className="bg-white text-black mt-8 w-3/4 shadow-lg max-h-100 rounded-3xl flex flex-col items-center mx-auto pb-15 overflow-y-scroll">
                 <div className="flex m-5">
                     <img src="/ActivityIcon.svg" className="w-8 mt-0 pb-2 mr-2"/>
-                    <h1 className="font-[Dongle] text-5xl font-bold  w-full">Activities</h1>
+                    <h1 className="font-[Dongle] text-5xl font-bold  w-full">Suggested Activities</h1>
                 </div>
     
                 {allActivities.map( activity =>
@@ -51,8 +56,17 @@ export default function DashboardPage() {
             </div>
 
             {/* Availabilities*/}
-            <div className="bg-white text-black mt-15 w-3/4  shadow-md rounded-xl flex mx-auto pb-15">
-                <h1 className="font-[Dongle] text-5xl font-bold text-center w-full p-5">Availabilities</h1>
+            <div className="bg-white text-black mt-15 w-3/4 shadow-md rounded-xl items-center flex mx-auto mb-10 pb-15 flex-col">
+                <div className="flex items-center m-5 w-full justify-center">
+                    <img src="/AvailabilitiesIcon.svg" className="w-6 mt-0 pb-3 mr-4" />
+                    <h1 className="font-[Dongle] text-5xl font-bold">Availabilities</h1>
+                </div>
+
+                {topAvailabilities.map(availability => 
+                        <AvailabilityBlock availabilityDate={availability.availabilityDate} totalFree={availability.totalFree}
+                                            availabilityDay={availability. availabilityDay} availabilityTime={availability.availabilityTime}/>
+                    )}
+
             </div>
 
         </div>
