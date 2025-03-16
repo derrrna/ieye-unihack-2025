@@ -7,6 +7,7 @@ export default function CreationPage() {
   const { hangoutId } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState(null);
+  const [hangout, setHangout] = useState();
 
   useEffect(() => {
     // Get the user's name from cookies
@@ -25,10 +26,22 @@ export default function CreationPage() {
     }
   }, [hangoutId, navigate]);
 
+    useEffect(() => {
+        fetch(`http://localhost:3000/hangout/${hangoutId}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res)=> {
+            return res.json();
+        }).then((data) => {
+            console.log(data.events)
+            setHangout(data);
+        });
+    },[hangoutId])
 
     const hangoutName = "Hangout Name";
     const meetupLocation = "Melbourne City";
-    const shareLink = "https://google.com";
+    const shareLink = `http://localhost:5173/dashboard/${hangoutId}`;
     const totalPeople = 5;
 
     {/* array containing all activities and their details*/}
@@ -51,21 +64,21 @@ export default function CreationPage() {
 
     {/*TODO: This should redirect to the suggestions page.*/}
     function handleSuggestButton() {
-
+      navigate(`/dashboard/${hangoutId}/suggestion`);
     }
 
     return (
-        <div className="bg-[url('public/DashboardPageBackground.png')] max-w-screen h-2lvh flex flex-col">
+        <div className="bg-[url('/DashboardPageBackground.png')] max-w-screen h-2lvh flex flex-col">
             {/*Logo*/}
             <h2 className="font-[Slackey] text-2xl text-[#F8574F] pt-20 pl-20">PalsPlan</h2>
 
-            <h2 className="text-black text-center mt-10 mb-5 text-3xl font-[Dongle] font-bold">Meetup Location: {meetupLocation}</h2>
-            <h1 className="text-5xl text-black font-[Slackey] text-center">{hangoutName}</h1>
+            <h2 className="text-black text-center mt-10 mb-5 text-3xl font-[Dongle] font-bold">Meetup Location: {hangout?.location || "Loading..."}</h2>
+            <h1 className="text-5xl text-black font-[Slackey] text-center">{hangout?.name || "Loading..."}</h1>
            
-            <div class="collapse w-full  justify-center text-black font-[Dongle]">
+            <div className="collapse w-full  justify-center text-black font-[Dongle]">
                 <input type="checkbox" className="w-1/2"/>
-                <div class="collapse-title text-2xl pl-10 mt-5 italic">Click me to share this dashboard with your pals!</div>
-                <div class="collapse-content text-2xl">
+                <div className="collapse-title text-2xl pl-10 mt-5 italic">Click me to share this dashboard with your pals!</div>
+                <div className="collapse-content text-2xl">
                     <p className="text-center">Copy this link: {shareLink}</p>
                 </div>
             </div>
@@ -76,11 +89,10 @@ export default function CreationPage() {
                     <h1 className="font-[Dongle] text-5xl font-bold  w-full">Suggested Activities</h1>
                 </div>
 
-                <button class="btn bg-[#08BA63] mb-10  border-none rounded-3xl" onClick={handleSuggestButton}>+ Suggest an Activity</button>
-    
-                {allActivities.map( (activity) =>
-                    <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
-                                addressLink={activity.addressLink} totalLikes={activity.totalLikes}/>
+                <button className="btn bg-[#08BA63] mb-10  border-none rounded-3xl" onClick={handleSuggestButton}>+ Suggest an Activity</button>
+                {hangout?.events?.map( (activity) =>
+                    <EventBlock activityName={activity.name} locationName={activity.location} 
+                                addressLink="www.google.com" totalLikes={activity.likes}/>
                 )}
 
             </div>
