@@ -1,6 +1,6 @@
 const OpenAI = require("openai");
 const dotenv = require("dotenv");
-
+const mongoose = require("mongoose");
 const Event = require('../models/Event');
 const Hangout = require("../models/Hangout");
 const axios = require('axios');
@@ -10,6 +10,28 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY,
 });
 
+const createEvent = async (req,res) => {
+  try {
+    const hangoutId = new mongoose.Types.ObjectId(req.body.hangoutId);
+    console.log(req.body)
+    const event = new Event({
+      name: req.body.name,
+      location: req.body.location,
+      likes: 0,
+      suggestingUser: req.body.userId,
+    })
+
+    await Hangout.findByIdAndUpdate(
+      hangoutId,
+      { $push: {events: event._id}},
+      { new: true }
+    );
+
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
 const generateSuggestion = async (req, res) => {
   const category = req.query.category;
 
@@ -39,7 +61,7 @@ const getEvents = async (req, res) => {
         const hangoutId = req.params.id;
         const hangout = await Hangout.findById(hangoutId);
         let activityLocation = hangout.location
-        const activityName = req.query.name;
+        const activityName = req.body.name;
 
         // insert location and name into Google API
         const searchQuery = `${activityName} in ${activityLocation}`;
@@ -52,8 +74,8 @@ const getEvents = async (req, res) => {
             name: place.name,
             address: place.formatted_address,
         }));
-
-        res.json({ searchQuery, matchingPlaces: places});
+        console.log(places)
+        res.json({ matchingPlaces: places.slice(0,5)});
 
     } catch (error) {
         console.error('Error processing request:', error);
@@ -62,5 +84,5 @@ const getEvents = async (req, res) => {
 }
 
 module.exports = {
-  generateSuggestion, getEvents
+  generateSuggestion, getEvents, createEvent
 };
