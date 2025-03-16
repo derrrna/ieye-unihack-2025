@@ -146,6 +146,8 @@ export default function SuggestionPage() {
                             Suggest for me!
                         </button>
                     </div>
+                </div>
+            </div>
                 {/* location suggestions side*/}
                 <div className="w-1/2 h-full text-black font-[Dongle]">
                     <h1 className="text-6xl font-semibold pt-10">We Suggest In The Area...</h1>
@@ -157,7 +159,5 @@ export default function SuggestionPage() {
                     </div>
                 </div>
 			</div>	
-			</div>
-		</div>
 	);
 }
