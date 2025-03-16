@@ -39,7 +39,7 @@ const getEvents = async (req, res) => {
         const hangoutId = req.params.id;
         const hangout = await Hangout.findById(hangoutId);
         let activityLocation = hangout.location
-        const activityName = req.query.name;
+        const activityName = req.body.name;
 
         // insert location and name into Google API
         const searchQuery = `${activityName} in ${activityLocation}`;
@@ -53,7 +53,7 @@ const getEvents = async (req, res) => {
             address: place.formatted_address,
         }));
 
-        res.json({ searchQuery, matchingPlaces: places});
+        res.json({ matchingPlaces: places});
 
     } catch (error) {
         console.error('Error processing request:', error);

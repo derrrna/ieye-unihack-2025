@@ -30,10 +30,10 @@ export default function SuggestionPage() {
                     <h1 className="text-6xl font-bold"> Activity Generator</h1>
                     <h3 className="text-4xl mt-5"> What plan you feeling? </h3>
                     <div className="mt-3">
-                    <form action={`http://localhost:3000/event/${hangoutId}/locations`}>
-                            <input type="text" name="name" placeholder="Enter an activity..." className="bg-[#EFEFEF] input rounded-xl text-xl" />
-                            <button type="submit" className="btn ml-3 text-xl text-white bg-[#5E93E8] border-none rounded-xl"> Suggest </button>
-                        </form>
+                    <form action={`http://localhost:3000/event/${hangoutId}/locations`} method="POST" >
+                        <input type="text" name="name" placeholder="Enter an activity..." className="bg-[#EFEFEF] input rounded-xl text-xl" />
+                        <button type="submit" className="btn ml-3 text-xl text-white bg-[#5E93E8] border-none rounded-xl"> Suggest </button>
+                    </form>
 
                     </div>
                 
