@@ -44,10 +44,12 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-white text-black mt-8 w-3/4 shadow-lg max-h-100 rounded-3xl flex flex-col items-center mx-auto pb-15 overflow-y-scroll">
-                <div className="flex m-5">
+                <div className="flex mt-10">
                     <img src="/ActivityIcon.svg" className="w-8 mt-0 pb-2 mr-2"/>
                     <h1 className="font-[Dongle] text-5xl font-bold  w-full">Suggested Activities</h1>
                 </div>
+                
+                <button class="btn bg-[#08BA63] mb-10  border-none rounded-3xl">+ Suggest an Activity</button>
     
                 {allActivities.map( (activity) =>
                     <EventBlock activityName={activity.activityName} locationName={activity.locationName} 
