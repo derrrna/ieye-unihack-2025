@@ -2,7 +2,7 @@ import React from "react";
 
 export default function LocationBlock(props) {
     return(
-        <button className=" btn btn-outline w-full shadow-sm h-22 m-3 rounded-xl">
+        <button className=" btn btn-outline w-full shadow-sm min-h-22 h-auto m-3 rounded-xl">
             <div className="flex w-full h-full">
                 <img src="/locationIcon.svg" className="w-10 m-5"/>
                 <div className="flex flex-col">

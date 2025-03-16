@@ -52,8 +52,8 @@ const getEvents = async (req, res) => {
             name: place.name,
             address: place.formatted_address,
         }));
-
-        res.json({ matchingPlaces: places});
+        console.log(places)
+        res.json({ matchingPlaces: places.slice(0,5)});
 
     } catch (error) {
         console.error('Error processing request:', error);
